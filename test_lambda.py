@@ -5,7 +5,7 @@ from lambda_function import lambda_handler
 
 # Тест үшін кіріс деректері
 event = {
-    "name": "Аяна"
+    "name": "Елнур"
 }
 
 # Lambda функциясын шақыру

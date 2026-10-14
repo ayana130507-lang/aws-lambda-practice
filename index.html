@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0d16">
+    <title>LambdaLab — Бұлттық функциялар зертханасы</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <header class="navbar">
+        <a class="brand" href="#">
+            <span class="brand-icon">λ</span>
+            <span>Lambda<span class="brand-light">Lab</span></span>
+        </a>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            Браузер режимі белсенді
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="eyebrow"><span>✦</span> SERVERLESS COMPUTING ЗЕРТХАНАСЫ</div>
+            <h1>Кодты іске қос.<br><span>Серверсіз жұмыс істе.</span></h1>
+            <p class="hero-description">
+                AWS Lambda технологиясының жұмыс істеу принципін зертте.
+                Функцияға деректер беріп, нәтижесін тікелей браузерден ал.
+            </p>
+            <div class="hero-tags">
+                <span>⌘ JavaScript</span>
+                <span>◈ JSON деректері</span>
+                <span>↗ Бұлттық технология</span>
+            </div>
+        </section>
+
+        <section class="workspace">
+            <div class="panel editor-panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <span class="window-dots"><i></i><i></i><i></i></span>
+                        Функцияны тексеру
+                    </div>
+                    <span class="file-label">event.json</span>
+                </div>
+
+                <label for="userName" class="field-label">ПАЙДАЛАНУШЫ ДЕРЕКТЕРІ</label>
+                <div class="input-wrap">
+                    <span class="input-icon">👤</span>
+                    <input id="userName" type="text" value="Аяна"
+                           placeholder="Атыңды енгіз" maxlength="60">
+                </div>
+
+                <label for="eventType" class="field-label">ОҚИҒА ТҮРІ</label>
+                <select id="eventType">
+                    <option value="greeting">Пайдаланушымен амандасу</option>
+                    <option value="info">Қызмет туралы ақпарат</option>
+                    <option value="time">Ағымдағы уақыт</option>
+                </select>
+
+                <div class="code-window">
+                    <div class="code-header">
+                        <span><span class="js-icon">JS</span> lambda_handler.js</span>
+                        <span class="live-label">● ДАЙЫН</span>
+                    </div>
+                    <pre><code><span class="purple">function</span> <span class="blue">lambda_handler</span>(event) {
+  <span class="purple">const</span> name = event.name;
+  <span class="purple">return</span> {
+    statusCode: <span class="orange">200</span>,
+    service: <span class="green">"AWS Lambda"</span>,
+    message: <span class="green">"Сәтті орындалды!"</span>
+  };
+}</code></pre>
+                </div>
+
+                <button id="runButton" class="run-button">
+                    <span>▶</span> Функцияны іске қосу
+                    <span class="button-arrow">↗</span>
+                </button>
+                <p class="hint">⚡ Браузерде орындалады. AWS аккаунты қажет емес.</p>
+            </div>
+
+            <div class="panel result-panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <span class="result-symbol">{ }</span>
+                        Орындалу нәтижесі
+                    </div>
+                    <span id="resultBadge" class="result-badge">КҮТУДЕ</span>
+                </div>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">⌁</div>
+                    <h3>Іске қосуға дайын</h3>
+                    <p>Атыңды енгізіп, оқиға түрін таңда. Содан кейін функцияны іске қосып, нәтижені көр.</p>
+                    <div class="mini-flow">
+                        <span>Дерек</span><b>→</b><span>Функция</span><b>→</b><span>JSON</span>
+                    </div>
+                </div>
+
+                <div id="outputState" class="output-state hidden">
+                    <div class="success-heading">
+                        <span class="success-icon">✓</span>
+                        <div>
+                            <strong>Сәтті орындалды</strong>
+                            <small>Функция жауап қайтарды</small>
+                        </div>
+                    </div>
+
+                    <div class="metric-grid">
+                        <div class="metric">
+                            <span>КҮЙ КОДЫ</span>
+                            <strong>200 <i>OK</i></strong>
+                        </div>
+                        <div class="metric">
+                            <span>ОРЫНДАЛУ УАҚЫТЫ</span>
+                            <strong id="duration">0 мс</strong>
+                        </div>
+                    </div>
+
+                    <div class="json-heading">
+                        <span>JSON ЖАУАБЫ</span>
+                        <button id="copyButton" class="copy-button">▢ Көшіру</button>
+                    </div>
+
+                    <pre id="jsonOutput" class="json-output"></pre>
+                    <p id="resultMessage" class="result-message"></p>
+                </div>
+
+                <div class="console">
+                    <div class="console-heading"><span>●</span> ОРЫНДАЛУ ЖУРНАЛЫ</div>
+                    <div id="logOutput" class="log-output">
+                        <p><span>ЖҮЙЕ</span> Зертхана дайын.</p>
+                        <p><span>ЖҮЙЕ</span> Оқиға күтілуде...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-grid">
+            <article class="info-card">
+                <div class="info-icon purple-bg">⌘</div>
+                <h3>1. Кіріс деректері</h3>
+                <p>Пайдаланушы енгізген мәліметтер оқиға нысаны арқылы беріледі.</p>
+                <span class="card-number">01 / INPUT</span>
+            </article>
+
+            <article class="info-card">
+                <div class="info-icon blue-bg">λ</div>
+                <h3>2. Функцияны өңдеу</h3>
+                <p>Функция оқиғаны өңдеп, тиісті жауапты қалыптастырады.</p>
+                <span class="card-number">02 / PROCESS</span>
+            </article>
+
+            <article class="info-card">
+                <div class="info-icon green-bg">{ }</div>
+                <h3>3. JSON нәтижесі</h3>
+                <p>Өңделген деректер құрылымдалған JSON жауабы ретінде көрсетіледі.</p>
+                <span class="card-number">03 / OUTPUT</span>
+            </article>
+        </section>
+
+        <section class="about">
+            <div class="about-icon">☁</div>
+            <div>
+                <h3>Жоба туралы</h3>
+                <p>
+                    Бұл оқу жобасы AWS Lambda технологиясының негізгі
+                    қағидаларын түсіндіреді. Қазіргі режимде функция
+                    JavaScript арқылы браузер ішінде симуляцияланады.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="brand footer-brand">
+                <span class="brand-icon">λ</span> LambdaLab
+            </div>
+            <p>Оқу жобасы · Бұлттық есептеулер технологиясы</p>
+            <span class="footer-status"><span class="status-dot"></span> Браузер режимі</span>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
